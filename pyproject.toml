@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hookenstein"
+version = "1.0.0"
+description = "Modular webhook server"
+authors = ["secw01f <secw0lf@proton.me>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^3.0.3"
+PyJWT = "^2.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
