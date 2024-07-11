@@ -11,7 +11,8 @@ import getopt
 class Server:
     def __init__(self, port, module, auth, **kwargs):
         self.port = port
-        self.module = import_module(f'modules.{module}').Hook(**kwargs)
+        self.module = import_module(f'modules.{module}')
+        self.hook = self.module.Hook(**kwargs)
         self.auth = auth
 
         if self.auth == True:
@@ -42,7 +43,7 @@ class Server:
         @auth_required
         def webhook():
             input = request.json
-            self.module.hook(input)
+            self.hook.hook(input)
             response = {"response": "200"}
             return jsonify(response)
         
@@ -100,7 +101,7 @@ if __name__ == '__main__':
     if module == "":
         print('A module is required')
         sys.exit()
-    if args != "":
+    if len(args) != 0:
         print(f'Webhook server running on port {port} for module {module}...\n')
         webhook = Server(port, module, auth, **args)
         webhook.webserver()
