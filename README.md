@@ -6,6 +6,7 @@ Modular webhook server for Frankensteining integrations....
 </p>
 
 ### Installation
+\*Poetry required. Details at https://python-poetry.org/docs/
 ```bash
 git clone https://github.com/secw01f/hookenstein
 cd hookenstein
