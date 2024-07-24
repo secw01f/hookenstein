@@ -14,7 +14,6 @@ class Server:
         self.module = import_module(f'modules.{module}')
         self.hook = self.module.Hook(**kwargs)
         self.auth = auth
-
         if self.auth == True:
             letters = string.ascii_lowercase
             self.key = (''.join(random.choice(letters) for i in range(50)))
@@ -25,7 +24,10 @@ class Server:
             @wraps(f)
             def auth(*args, **kwargs):
                 if self.auth == True:
-                    token = request.headers['Authorization'].split()[1]
+                    if request.args.get('token') != None:
+                        token = request.args.get('token')
+                    else:
+                        token = request.headers['Authorization'].split()[1]
                     try:
                         jwt.decode(token, self.key, algorithms='HS256')
                         return f(*args, **kwargs)
